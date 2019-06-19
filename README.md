@@ -48,7 +48,7 @@ $ npm run prerender
 
 Server-Side Render
 
-![image](https://user-images.githubusercontent.com/13595509/59756578-94d4ed00-92bc-11e9-9b20-5d2b4cbfab06.png)
+![image](https://user-images.githubusercontent.com/13595509/59770074-f35c9400-92d9-11e9-978f-e443b16dbda4.png)
 
 PreRender
 
