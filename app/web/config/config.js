@@ -8,9 +8,11 @@ export default {
       {
         hd: true,
         antd: true,
-        dynamicImport: {
-          webpackChunkName: true,
-        },
+        // TODO, page router css leak
+        dynamicImport: false,
+        // dynamicImport: {
+        //   webpackChunkName: true,
+        // },
       },
     ],
   ],

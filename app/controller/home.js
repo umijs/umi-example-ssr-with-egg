@@ -20,9 +20,9 @@ class HomeController extends Controller {
     const serverRender = require(`${this.umiServerPath}`);
     const { ReactDOMServer } = serverRender;
 
-    const { htmlElement } = await serverRender.default(ctx);
+    const { rootContainer } = await serverRender.default(ctx);
 
-    const ssrContent = ReactDOMServer.renderToString(htmlElement);
+    const ssrContent = ReactDOMServer.renderToString(rootContainer);
 
     await ctx.render('index.html', {
       ssrContent,
