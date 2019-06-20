@@ -11,6 +11,6 @@ export default {
         },
       },
     ],
-    ['umi-plugin-prerender'],
+    [ '@umijs/plugin-prerender' ],
   ],
 };

@@ -21,8 +21,6 @@
 $ npm install
 ```
 
-> depends on [umijs/umi](http://github.com/umijs/umi/pulls/2543), you should link `umi-build-dev` `umi umi-plugin-react` `umi-plugin-prerender` packages.
-
 ## Usage
 
 Development
