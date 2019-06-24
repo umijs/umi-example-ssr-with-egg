@@ -1,3 +1,5 @@
+import { IConfig } from 'umi-types';
+
 export default {
   ssr: true,
   outputPath: '../public',
@@ -19,4 +21,4 @@ export default {
   runtimePublicPath: true,
   disableCSSModules: true,
   cssModulesWithAffix: true,
-};
+} as IConfig;

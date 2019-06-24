@@ -1,3 +1,5 @@
+import { IConfig } from 'umi-types';
+
 export default {
   hash: true,
   plugins: [
@@ -13,4 +15,4 @@ export default {
     ],
     [ '@umijs/plugin-prerender' ],
   ],
-};
+} as IConfig;

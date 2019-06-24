@@ -44,6 +44,7 @@
     "umi": "^2.8.0",
     "umi-plugin-ecma5-validator": "^0.1.0",
     "umi-plugin-react": "^1.9.0",
+    "umi-types": "^0.3.9",
     "webstorm-disable-index": "^1.2.0"
   },
   "engines": {

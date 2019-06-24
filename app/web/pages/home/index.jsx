@@ -289,7 +289,7 @@ export default class extends React.Component {
             dataSource={this.dataSource}
             renderFooter={() => (
               <div style={{ padding: 30, textAlign: 'center' }}>
-                {this.state.isLoading ? '加载中...' : '暂无更多'}
+                {this.state.isLoading ? '加载中...' : '3323wefewf2wewefewffwefewfwef多333'}
               </div>
             )}
             renderRow={this.renderRow}

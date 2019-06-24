@@ -1,3 +1,5 @@
+import { IConfig } from 'umi-types';
+
 export default {
   proxy: {
     '/restapi': {
@@ -5,4 +7,4 @@ export default {
       changeOrigin: true,
     },
   },
-};
+} as IConfig;
