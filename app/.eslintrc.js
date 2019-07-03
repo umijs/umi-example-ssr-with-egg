@@ -12,6 +12,7 @@ module.exports = {
     'lines-between-class-members': [0],
     'no-param-reassign': [0],
     'eslint-comments/no-unlimited-disable': [0],
+    'operator-assignment': [0]
   },
   globals: {
     SERVER_HOST: true

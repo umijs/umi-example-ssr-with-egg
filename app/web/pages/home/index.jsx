@@ -21,9 +21,9 @@ class Home extends React.Component {
     address: '当前地址',
   };
   // client and server both call
-  static getInitialProps = async () => {
+  static getInitialProps = async ({ store, route, isServer }) => {
     // new dva ins
-    await require('@tmp/dva').getApp()._store.dispatch({
+    await store.dispatch({
       type: 'home/queryRests',
       payload: {
         offset: 0,

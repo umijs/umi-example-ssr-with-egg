@@ -1,5 +1,6 @@
 import * as React from 'react';
 import router from 'umi/router';
+import Link from 'umi/link';
 import { NavBar, Icon, List, WhiteSpace } from 'antd-mobile';
 import styles from './index.module.less';
 
@@ -64,9 +65,7 @@ const icon = [
 ];
 
 export default class extends React.Component {
-  renderItem = data => {
-    return <div>{data.title}</div>;
-  };
+  renderItem = data => <div>{data.title}</div>;
 
   render() {
     return (
@@ -84,6 +83,15 @@ export default class extends React.Component {
         <List>
           <List.Item thumb={icon[0]} arrow="horizontal">
             我的地址
+          </List.Item>
+        </List>
+        <WhiteSpace />
+        <List>
+          <List.Item thumb={icon[0]} arrow="horizontal">
+            <Link to="/news/1">新闻1</Link>
+          </List.Item>
+          <List.Item thumb={icon[0]} arrow="horizontal">
+            <Link to="/news/2">新闻2</Link>
           </List.Item>
         </List>
         <WhiteSpace />

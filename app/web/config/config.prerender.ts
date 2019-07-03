@@ -1,6 +1,6 @@
 import { IConfig } from 'umi-types';
 
-export default {
+const config: IConfig = {
   hash: true,
   plugins: [
     [
@@ -8,11 +8,18 @@ export default {
       {
         hd: true,
         antd: true,
-        dynamicImport: {
-          webpackChunkName: true,
+        dva: {
+          immer: true,
         },
+        // TODO, page router css leak
+        dynamicImport: false,
+        // dynamicImport: {
+        //   webpackChunkName: true,
+        // },
       },
     ],
     [ '@umijs/plugin-prerender' ],
   ],
-} as IConfig;
+};
+
+export default config;
