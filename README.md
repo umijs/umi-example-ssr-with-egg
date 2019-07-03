@@ -44,9 +44,9 @@ $ npm run prerender
 
 ## SnapShot
 
-Server-Side Render
+Server-Side Render(with dvajs)
 
-![image](https://user-images.githubusercontent.com/13595509/59770074-f35c9400-92d9-11e9-978f-e443b16dbda4.png)
+![image](https://user-images.githubusercontent.com/13595509/60561124-1a5ca080-9d85-11e9-8a19-6d2f98e47741.png)
 
 PreRender
 

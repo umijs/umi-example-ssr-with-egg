@@ -1,47 +1,39 @@
 import * as React from 'react';
 import router from 'umi/router';
+import { connect } from 'dva';
 import { StickyContainer, Sticky } from 'react-sticky';
 import { SearchBar, Grid, ListView } from 'antd-mobile';
 import styles from './index.module.less';
 
-export default class extends React.Component {
+@connect(({ home, loading }) => ({
+  ...home,
+  loading: loading.effects['home/queryRests'],
+}))
+class Home extends React.Component {
   constructor(props) {
     super(props);
-    console.log('--window.location-', window.location);
     if (window.location && window.location.pathname.indexOf('/home') < 0) {
       router.replace('/home');
-      return;
     }
   }
 
   state = {
     address: '当前地址',
-    coords: {},
-    rank_id: '',
-    isLoading: false,
   };
-
-  componentDidMount() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        position => {
-          console.log('getCurrentPosition', position);
-          // eslint-disable-next-line react/no-direct-mutation-state
-          this.state.coords = position.coords;
-          this.init(this.state.coords);
-        },
-        err => {
-          console.log('getCurrentPosition err', err);
-          // eslint-disable-next-line react/no-direct-mutation-state
-          this.state.coords = {
-            latitude: '30.27697500000001',
-            longitude: '120.1213009',
-          };
-          // mock data
-          this.init(this.state.coords);
-        },
-      );
-    }
+  // client and server both call
+  static getInitialProps = async () => {
+    // new dva ins
+    await require('@tmp/dva').getApp()._store.dispatch({
+      type: 'home/queryRests',
+      payload: {
+        offset: 0,
+        limit: 8,
+        extras: ['activities', 'tags'],
+        extra_filters: 'home',
+        rank_id: '',
+        terminal: 'h5',
+      },
+    });
   }
 
   onSearch = value => {
@@ -49,21 +41,14 @@ export default class extends React.Component {
   };
 
   onEndReached = () => {
-    if (!this.state.isLoading) {
-      this.setState(
-        {
-          isLoading: true,
-        },
-        () => {
-          const { coords, rank_id } = this.state;
-          this.loadRestaurantData(coords, rank_id);
-        },
-      );
+    const { loading, rank_id } = this.props;
+    if (!loading) {
+      this.loadRestaurantData(rank_id);
     }
   };
 
   getImage = hash => {
-    const path = hash[0] + '/' + hash.substr(1, 2) + '/' + hash.substr(3);
+    const path = `${hash[0]}/${hash.substr(1, 2)}/${hash.substr(3)}`;
 
     let type = 'jpeg';
     if (path.indexOf('png') > -1) {
@@ -87,15 +72,15 @@ export default class extends React.Component {
    * 初始化
    * @param {Coordinates} coords 坐标
    */
-  init(coords) {
-    this.loadTypeData(coords);
-    this.loadPoiData(coords);
-    this.loadRestaurantData(coords);
+  init() {
+    this.loadTypeData();
+    this.loadPoiData();
+    this.loadRestaurantData();
   }
 
   rests = [];
 
-  dataSource = new ListView.DataSource({
+  getListViewDataSource = new ListView.DataSource({
     rowHasChanged: (row1, row2) => row1 !== row2,
   });
 
@@ -103,7 +88,8 @@ export default class extends React.Component {
    * 加载分类数据
    * @param {Coordinates} coords 坐标
    */
-  loadTypeData({ latitude, longitude }) {
+  loadTypeData() {
+    const { latitude, longitude } = this.props;
     fetch(
       `/restapi/shopping/openapi/entries?latitude=${latitude}&longitude=${longitude}&templates[]=main_template&templates[]=favourable_template&templates[]=svip_template`,
     )
@@ -125,7 +111,8 @@ export default class extends React.Component {
    * 加载地理数据
    * @param {Coordinates} coords 坐标
    */
-  loadPoiData({ latitude, longitude }) {
+  loadPoiData() {
+    const { latitude, longitude } = this.props;
     // poi数据
     fetch(`/restapi/bgs/poi/reverse_geo_coding?latitude=${latitude}&longitude=${longitude}`)
       .then(res => {
@@ -143,31 +130,24 @@ export default class extends React.Component {
   }
 
   /**
-   * 加载地理数据
+   * 加载餐厅数据
    * @param {Coordinates} coords 坐标
    * @param {number} rank_id rank id
    */
-  loadRestaurantData({ latitude, longitude }, rank_id = '') {
-    fetch(
-      `/restapi/shopping/v3/restaurants?latitude=${latitude}&longitude=${longitude}&offset=${
-        this.rests.length
-      }limit=8&extras[]=activities&extras[]=tags&extra_filters=home&rank_id=&terminal=h5&rank_id=${rank_id}`,
-    )
-      .then(res => {
-        if (res.status === 200) {
-          res.json().then(data => {
-            this.rests = [].concat(this.rests, data.items);
-            this.dataSource = this.dataSource.cloneWithRows(this.rests);
-            this.setState({
-              rank_id: data.meta.rank_id,
-              isLoading: false,
-            });
-          });
-        }
-      })
-      .catch(err => {
-        console.warn(err);
-      });
+  loadRestaurantData(rank_id) {
+    const { dispatch, rests } = this.props;
+    console.log('---rests-', rests);
+    dispatch({
+      type: 'home/queryRests',
+      payload: {
+        offset: 0,
+        limit: 8,
+        extras: ['activities', 'tags'],
+        extra_filters: 'home',
+        rank_id,
+        terminal: 'h5',
+      },
+    });
   }
 
   gotoDetail = data => {
@@ -222,7 +202,8 @@ export default class extends React.Component {
 
   render() {
     const { address } = this.state;
-
+    const { rests } = this.props;
+    const dataSource = this.getListViewDataSource.cloneWithRows(rests);
     return (
       <div className={styles.home}>
         <header className={styles.header}>
@@ -286,10 +267,10 @@ export default class extends React.Component {
             <div className={styles.seph} />
           </div>
           <ListView
-            dataSource={this.dataSource}
+            dataSource={dataSource}
             renderFooter={() => (
               <div style={{ padding: 30, textAlign: 'center' }}>
-                {this.state.isLoading ? '加载中...' : '3323wefewf2wewefewffwefewfwef多333'}
+                {this.state.isLoading ? '加载中...' : 'footer'}
               </div>
             )}
             renderRow={this.renderRow}
@@ -304,3 +285,5 @@ export default class extends React.Component {
     );
   }
 }
+
+export default Home;

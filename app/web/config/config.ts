@@ -1,6 +1,6 @@
 import { IConfig } from 'umi-types';
 
-export default {
+const config: IConfig = {
   ssr: true,
   outputPath: '../public',
   manifest: {},
@@ -10,6 +10,9 @@ export default {
       {
         hd: true,
         antd: true,
+        dva: {
+          immer: true,
+        },
         // TODO, page router css leak
         dynamicImport: false,
         // dynamicImport: {
@@ -21,4 +24,6 @@ export default {
   runtimePublicPath: true,
   disableCSSModules: true,
   cssModulesWithAffix: true,
-} as IConfig;
+};
+
+export default config;
