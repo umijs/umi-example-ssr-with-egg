@@ -16,6 +16,8 @@ class HomeController extends Controller {
       delete require.cache[require.resolve(this.umiServerPath)];
     }
     global.window = {};
+    global.SERVER_HOST = `${ctx.request.protocol}://${ctx.request.host}`;
+
     // eslint-disable-next-line
     const serverRender = require(`${this.umiServerPath}`);
     const { ReactDOMServer } = serverRender;
