@@ -2,6 +2,7 @@
 
 const { Controller } = require('egg');
 const { join } = require('path');
+const  restaurants = require('../data/restaurants.json');
 
 class HomeController extends Controller {
   constructor(ctx) {
@@ -33,6 +34,11 @@ class HomeController extends Controller {
 
   async api() {
     const ctx = this.ctx;
+    if (ctx.path.indexOf('restaurants') > -1 ) {
+      ctx.status = 200;
+      ctx.body = restaurants;
+      return false;
+    }
 
     const url = 'https://h5.ele.me' + ctx.path.replace(/^\/api/, '') + '?' + ctx.querystring;
 

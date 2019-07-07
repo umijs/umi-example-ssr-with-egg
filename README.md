@@ -33,7 +33,7 @@ $ open http://localhost:7001/
 Start server
 
 ```sh
-$ npm start
+$ npm run build && npm start
 ```
 
 Pre Render
