@@ -1,3 +1,3 @@
 export default {
-  hello: '你好',
+  hello: '搜索商家、商品名称',
 };

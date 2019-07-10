@@ -205,7 +205,6 @@ class Home extends React.Component {
     const { address } = this.state;
     const { rests } = this.props;
     const dataSource = this.getListViewDataSource.cloneWithRows(rests);
-    console.log('--getLocale-', getLocale());
     return (
       <div className={styles.home}>
         <header className={styles.header}>
@@ -232,7 +231,6 @@ class Home extends React.Component {
                   className={styles.search}
                   onSubmit={this.onSearch}
                 />
-                <FormattedMessage id="hello" />
               </div>
             )}
           </Sticky>
