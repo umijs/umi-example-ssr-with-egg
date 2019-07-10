@@ -1,3 +1,4 @@
+import { join } from 'path';
 import { IConfig } from 'umi-types';
 
 const config: IConfig = {
@@ -8,6 +9,9 @@ const config: IConfig = {
     [
       'umi-plugin-react',
       {
+        locale: {
+          baseNavigator: false,
+        },
         hd: true,
         antd: true,
         dva: {

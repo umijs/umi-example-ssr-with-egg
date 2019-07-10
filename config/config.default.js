@@ -9,6 +9,12 @@ module.exports = appInfo => {
   // add your config here
   config.middleware = [];
 
+  // locale
+  config.i18n = {
+    defaultLocale: 'zh-CN',
+  };
+
+
   config.view = {
     mapping: {
       '.html': 'nunjucks',

@@ -1,5 +1,5 @@
 import fetch from 'isomorphic-fetch';
-import { notification } from 'antd';
+import { message } from 'antd';
 import qs from 'qs';
 
 export interface IOption extends RequestInit {
@@ -14,10 +14,7 @@ const request = (url, option: IOption) => {
   return fetch(reqUrl, restOpts).then(res => res.json()).catch(e => {
     console.error('e', e);
     if (typeof document !== 'undefined') {
-      notification.error({
-        message: '请求错误',
-        description: e,
-      });
+      message.error('请求错误');
     }
   });
 };

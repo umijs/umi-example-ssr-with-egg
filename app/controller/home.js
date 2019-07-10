@@ -1,8 +1,8 @@
-'use strict';
+
 
 const { Controller } = require('egg');
 const { join } = require('path');
-const  restaurants = require('../data/restaurants.json');
+const restaurants = require('../data/restaurants.json');
 
 class HomeController extends Controller {
   constructor(ctx) {
@@ -16,14 +16,28 @@ class HomeController extends Controller {
     if (env === 'local') {
       delete require.cache[require.resolve(this.umiServerPath)];
     }
-    global.window = {};
-    global.SERVER_HOST = `${ctx.request.protocol}://${ctx.request.host}`;
+
+    const serverHost = `${ctx.request.protocol}://${ctx.request.host}`;
+
+    global.SERVER_HOST = serverHost;
+
+    global.window = {
+      location: {
+        href: `${serverHost}${ctx.request.url}`,
+        pathname: ctx.path,
+      },
+    };
+    ctx.logger.debug('global.window--server', global.window);
+
 
     // eslint-disable-next-line
     const serverRender = require(`${this.umiServerPath}`);
     const { ReactDOMServer } = serverRender;
-
-    const { rootContainer } = await serverRender.default(ctx);
+    const { rootContainer } = await serverRender.default({
+      req: {
+        url: ctx.path,
+      }
+    });
 
     const ssrContent = ReactDOMServer.renderToString(rootContainer);
 
@@ -33,14 +47,14 @@ class HomeController extends Controller {
   }
 
   async api() {
-    const ctx = this.ctx;
-    if (ctx.path.indexOf('restaurants') > -1 ) {
+    const { ctx } = this;
+    if (ctx.path.indexOf('restaurants') > -1) {
       ctx.status = 200;
       ctx.body = restaurants;
       return false;
     }
 
-    const url = 'https://h5.ele.me' + ctx.path.replace(/^\/api/, '') + '?' + ctx.querystring;
+    const url = `https://h5.ele.me${ctx.path.replace(/^\/api/, '')}?${ctx.querystring}`;
 
     console.log(url);
     const res = await this.ctx.curl(url, {
