@@ -1,5 +1,6 @@
 import * as React from 'react';
 import router from 'umi/router';
+import { formatMessage, getLocale, FormattedMessage } from 'umi/locale';
 import { connect } from 'dva';
 import { StickyContainer, Sticky } from 'react-sticky';
 import { SearchBar, Grid, ListView } from 'antd-mobile';
@@ -224,7 +225,9 @@ class Home extends React.Component {
             {({ style }) => (
               <div style={{ ...style, zIndex: 1, height: '1.2rem', overflow: 'hidden' }}>
                 <SearchBar
-                  placeholder="搜索商家、商品名称"
+                  placeholder={formatMessage({
+                    id: 'hello'
+                  })}
                   className={styles.search}
                   onSubmit={this.onSearch}
                 />

@@ -3,6 +3,7 @@ import router from 'umi/router';
 import { NavBar, Icon, Tabs, List, Button, WhiteSpace } from 'antd-mobile';
 import styles from './index.module.less';
 
+
 export default class extends Component {
   state = {
     index: 0,
@@ -13,7 +14,7 @@ export default class extends Component {
 
   componentDidMount() {
     window.scrollTo(0, 0);
-    const id = this.props.location.query.id;
+    const { id } = this.props.location.query;
     this.loadMenu(id);
     this.loadInfo(id);
   }
@@ -22,7 +23,7 @@ export default class extends Component {
     if (!hash) {
       return '';
     }
-    const path = hash[0] + '/' + hash.substr(1, 2) + '/' + hash.substr(3);
+    const path = `${hash[0] }/${hash.substr(1, 2)}/${hash.substr(3)}`;
     let type = 'jpeg';
     if (path.indexOf('png') > -1) {
       type = 'png';
@@ -70,16 +71,14 @@ export default class extends Component {
   throttle = false;
   offset = 0;
 
-  renderTab = tab => {
-    return <div className={styles.menuItem}>{tab.name}</div>;
-  };
+  renderTab = tab => <div className={styles.menuItem}>{tab.name}</div>;
 
   renderFood = (item, index) => {
     const id = item.id || item.virtual_food_id;
     if (item._type === 'type') {
       return (
         <div
-          key={id + `_${index}`}
+          key={`${id }_${index}`}
           id={id}
           ref={dom => {
             if (!dom) return;
@@ -96,7 +95,7 @@ export default class extends Component {
     }
     if (item._type === 'food') {
       return (
-        <div key={id + `_${index}`} id={id}>
+        <div key={`${id}_${index}`} id={id}>
           <List.Item>
             <div className={styles.food}>
               <div className={styles.image}>
