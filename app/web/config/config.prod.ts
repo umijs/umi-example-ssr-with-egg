@@ -4,6 +4,6 @@ export default {
   hash: true,
   publicPath: '',
   manifest: {
-    fileName: 'manifest.json',
+    fileName: '../../config/manifest.json',
   },
 } as IConfig;

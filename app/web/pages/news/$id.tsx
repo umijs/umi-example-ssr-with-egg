@@ -5,11 +5,13 @@ import router from 'umi/router';
 
 const News: React.SFC<{}> = (props) => {
   const { id, name, count, dispatch } = props || {};
+
   const handleClick = () => {
     dispatch({
       type: 'news/addCount',
     });
   };
+
   React.useEffect(() => {
     return () => {
       dispatch({
