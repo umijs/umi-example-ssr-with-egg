@@ -8,7 +8,8 @@
 <meta name="format-detection" content="email=no"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
 <title></title>
-{{ helper.assets.getStyle('umi.css') | safe }}
+{% for css in cssChunks %}{{ helper.assets.getStyle(css) | safe }}
+{% endfor %}
 </head>
 <body>
 
@@ -18,6 +19,7 @@
   window.routerBase = '/';
   window.resourceBaseUrl = '{{ helper.assets.resourceBase }}';
 </script>
-{{ helper.assets.getScript('umi.js') | safe }}
+{% for js in jsChunks %}{{ helper.assets.getScript(js) | safe }}
+{% endfor %}
 </body>
 </html>
