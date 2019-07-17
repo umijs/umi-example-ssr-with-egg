@@ -35,7 +35,6 @@ class HomeController extends Controller {
     const serverRender = require(`${this.umiServerPath}`);
     // eslint-disable-next-line
     const manifest = require(`${this.umiManifest}`);
-    console.log('-manifest-', manifest);
     const { ReactDOMServer } = serverRender;
     const { rootContainer, matchPath } = await serverRender.default({
       req: {
