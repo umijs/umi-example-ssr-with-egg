@@ -36,7 +36,7 @@ class HomeController extends Controller {
     // eslint-disable-next-line
     const manifest = require(`${this.umiManifest}`);
     const { ReactDOMServer } = serverRender;
-    const { rootContainer, matchPath } = await serverRender.default({
+    const { rootContainer, matchPath, g_initialData } = await serverRender.default({
       req: {
         url: ctx.path,
       }
@@ -49,6 +49,7 @@ class HomeController extends Controller {
       ssrContent,
       jsChunks: js,
       cssChunks: css,
+      g_initialData: encodeURIComponent(JSON.stringify(g_initialData)),
     });
   }
 
