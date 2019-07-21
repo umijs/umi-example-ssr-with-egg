@@ -17,9 +17,9 @@ const config: IConfig = {
           immer: true,
         },
         // TODO, page router css leak
-        dynamicImport: {
-          webpackChunkName: true,
-        },
+        // dynamicImport: {
+        //   webpackChunkName: true,
+        // },
       },
     ],
   ],

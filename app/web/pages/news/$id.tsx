@@ -31,7 +31,7 @@ const News: React.SFC<{}> = (props) => {
 };
 
 (News as any).getInitialProps = async ({ route, store, isServer }) => {
-  console.log('---getInitialProps-', route, store, isServer);
+  // console.log('---getInitialProps-', route, store, isServer);
   const { id } = route.params;
   const data = [{
     id: 0,

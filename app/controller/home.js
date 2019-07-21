@@ -28,8 +28,6 @@ class HomeController extends Controller {
         pathname: ctx.path,
       },
     };
-    ctx.logger.debug('global.window--server', global.window);
-
 
     // eslint-disable-next-line
     const serverRender = require(`${this.umiServerPath}`);
@@ -47,7 +45,7 @@ class HomeController extends Controller {
 
     await ctx.render('index.html', {
       ssrContent,
-      jsChunks: js,
+      jsChunks: js.slice(1),
       cssChunks: css,
       g_initialData: encodeURIComponent(JSON.stringify(g_initialData)),
     });
