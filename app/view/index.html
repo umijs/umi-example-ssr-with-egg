@@ -8,12 +8,17 @@
 <meta name="format-detection" content="email=no"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
 <title></title>
-{{ helper.assets.getStyle('umi.css') | safe }}
+{% for js in jsChunks %}<link rel="preload" href="{{ helper.assets.resourceBase }}{{js}}" as="script"/>
+{% endfor %}
+
+{% for css in cssChunks %}
+<link rel="stylesheet" href="{{ helper.assets.resourceBase }}{{css}}">
+{% endfor %}
+<script>(function(){window.g_initialData = JSON.parse(decodeURIComponent('{{ g_initialData }}'));})()</script>
 </head>
 <body>
 
 <div id="root">{{ ssrContent | safe }}</div>
-
 <script>
   window.routerBase = '/';
   window.resourceBaseUrl = '{{ helper.assets.resourceBase }}';

@@ -8,6 +8,7 @@ class HomeController extends Controller {
   constructor(ctx) {
     super(ctx);
     this.umiServerPath = join(__dirname, '..', 'public', 'umi.server.js');
+    this.umiManifest = join(__dirname, '..', 'public', 'ssr-client-mainifest.json');
   }
 
   async index() {
@@ -27,22 +28,26 @@ class HomeController extends Controller {
         pathname: ctx.path,
       },
     };
-    ctx.logger.debug('global.window--server', global.window);
-
 
     // eslint-disable-next-line
     const serverRender = require(`${this.umiServerPath}`);
+    // eslint-disable-next-line
+    const manifest = require(`${this.umiManifest}`);
     const { ReactDOMServer } = serverRender;
-    const { rootContainer } = await serverRender.default({
+    const { rootContainer, matchPath, g_initialData } = await serverRender.default({
       req: {
         url: ctx.path,
       }
     });
+    const { js, css } = manifest[matchPath] || { js: [], css: [] };
 
     const ssrContent = ReactDOMServer.renderToString(rootContainer);
 
     await ctx.render('index.html', {
       ssrContent,
+      jsChunks: js.slice(1),
+      cssChunks: css,
+      g_initialData: encodeURIComponent(JSON.stringify(g_initialData)),
     });
   }
 
