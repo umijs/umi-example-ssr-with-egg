@@ -11,7 +11,8 @@
 {% for js in jsChunks %}<link rel="preload" href="{{ helper.assets.resourceBase }}{{js}}" as="script"/>
 {% endfor %}
 
-{% for css in cssChunks %}{{ helper.assets.getStyle(css) | safe }}
+{% for css in cssChunks %}
+<link rel="stylesheet" href="{{ helper.assets.resourceBase }}{{css}}">
 {% endfor %}
 <script>(function(){window.g_initialData = JSON.parse(decodeURIComponent('{{ g_initialData }}'));})()</script>
 </head>

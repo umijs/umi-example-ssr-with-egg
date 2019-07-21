@@ -14,7 +14,6 @@ module.exports = appInfo => {
     defaultLocale: 'zh-CN',
   };
 
-
   config.view = {
     mapping: {
       '.html': 'nunjucks',
