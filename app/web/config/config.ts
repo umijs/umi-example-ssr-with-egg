@@ -11,7 +11,7 @@ const config: IConfig = {
         locale: {
           baseNavigator: false,
         },
-        hd: true,
+        hd: false,
         antd: true,
         dva: {
           immer: true,
