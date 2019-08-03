@@ -14,7 +14,4 @@ module.exports = {
     'eslint-comments/no-unlimited-disable': [0],
     'operator-assignment': [0]
   },
-  globals: {
-    SERVER_HOST: true
-  }
 };

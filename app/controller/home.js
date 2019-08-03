@@ -2,6 +2,7 @@
 
 const { Controller } = require('egg');
 const { join } = require('path');
+const ssrPolyfill = require('ssr-polyfill');
 const restaurants = require('../data/restaurants.json');
 
 class HomeController extends Controller {
@@ -11,23 +12,30 @@ class HomeController extends Controller {
     this.umiManifest = join(__dirname, '..', 'public', 'ssr-client-mainifest.json');
   }
 
+  // eslint-disable-next-line class-methods-use-this
+  nodePolyfill(win) {
+    global.window = win;
+    global.self = global.window;
+    global.document = global.window.document;
+    global.location = global.window.loaction;
+    global.navigator = global.window.navigator;
+    global.Image = global.window.Image;
+  }
+
   async index() {
     const { ctx } = this;
     const { env } = ctx.app.config;
+    const originGlobal = global;
     if (env === 'local') {
       delete require.cache[require.resolve(this.umiServerPath)];
     }
 
     const serverHost = `${ctx.request.protocol}://${ctx.request.host}`;
 
-    global.SERVER_HOST = serverHost;
-
-    global.window = {
-      location: {
-        href: `${serverHost}${ctx.request.url}`,
-        pathname: ctx.path,
-      },
-    };
+    const win = ssrPolyfill({
+      url: `${serverHost}${ctx.request.url}`,
+    });
+    this.nodePolyfill(win);
 
     // eslint-disable-next-line
     const serverRender = require(`${this.umiServerPath}`);
@@ -42,6 +50,9 @@ class HomeController extends Controller {
     const { js, css } = manifest[matchPath] || { js: [], css: [] };
 
     const ssrContent = ReactDOMServer.renderToString(rootContainer);
+
+    // for reset global window, avoid oom
+    this.nodePolyfill(originGlobal.window);
 
     await ctx.render('index.html', {
       ssrContent,
