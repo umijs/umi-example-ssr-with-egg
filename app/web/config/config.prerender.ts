@@ -7,6 +7,9 @@ const config: IConfig = {
       'umi-plugin-react',
       {
         hd: true,
+        locale: {
+          baseNavigator: false,
+        },
         antd: true,
         dva: {
           immer: true,
@@ -18,7 +21,12 @@ const config: IConfig = {
         // },
       },
     ],
-    [ '@umijs/plugin-prerender' ],
+    ['@umijs/plugin-prerender', {
+      runInMockContext: {
+        // your server address, for prerender get data
+        url: 'http://localhost:7001',
+      }
+    }],
   ],
 };
 

@@ -9,7 +9,7 @@
     "dev": "egg-bin dev",
     "debug": "cross-env RM_TMPDIR=none COMPRESS=none egg-bin debug",
     "build": "npm run umi:build",
-    "prerender": "cross-env UMI_ENV=prerender umi build",
+    "prerender": "egg-scripts start --daemon --env prod && cross-env UMI_ENV=prerender umi build && egg-scripts stop",
     "umi:dev": "umi dev",
     "umi:build": "cross-env UMI_ENV=prod CI=true umi build",
     "test": "egg-bin test",
