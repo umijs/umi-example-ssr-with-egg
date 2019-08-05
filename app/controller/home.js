@@ -45,7 +45,7 @@ class HomeController extends Controller {
     const { ReactDOMServer } = serverRender;
     const { rootContainer, matchPath, g_initialData } = await serverRender.default({
       req: {
-        url: ctx.path,
+        url: ctx.request.url,
       }
     });
     const { js, css } = manifest[matchPath] || { js: [], css: [] };

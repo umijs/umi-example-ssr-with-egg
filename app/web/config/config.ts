@@ -1,4 +1,3 @@
-import { join } from 'path';
 import { IConfig } from 'umi-types';
 
 const config: IConfig = {

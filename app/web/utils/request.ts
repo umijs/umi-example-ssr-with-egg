@@ -13,7 +13,7 @@ const request = (url, option: IOption) => {
   const reqUrl = `${typeof process !== 'undefined' ? window.location.origin : ''}${url}${paramsStr}`;
   return fetch(reqUrl, restOpts).then(res => res.json()).catch(e => {
     console.error('e', e);
-    if (typeof document !== 'undefined') {
+    if (typeof document !== 'undefined' && !window.USE_PRERENDER) {
       message.error('请求错误');
     }
   });
