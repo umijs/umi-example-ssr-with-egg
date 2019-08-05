@@ -1,7 +1,7 @@
 import * as React from 'react';
 import router from 'umi/router';
 import { Helmet } from 'react-helmet';
-import { formatMessage, getLocale, FormattedMessage } from 'umi/locale';
+import { formatMessage } from 'umi-plugin-locale';
 import { connect } from 'dva';
 import { StickyContainer, Sticky } from 'react-sticky';
 import { SearchBar, Grid, ListView } from 'antd-mobile';
