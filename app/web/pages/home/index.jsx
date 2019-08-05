@@ -1,5 +1,6 @@
 import * as React from 'react';
 import router from 'umi/router';
+import { Helmet } from 'react-helmet';
 import { formatMessage, getLocale, FormattedMessage } from 'umi/locale';
 import { connect } from 'dva';
 import { StickyContainer, Sticky } from 'react-sticky';
@@ -207,6 +208,9 @@ class Home extends React.Component {
     const dataSource = this.getListViewDataSource.cloneWithRows(rests);
     return (
       <div className={styles.home}>
+        <Helmet>
+          <title>Hello helment title</title>
+        </Helmet>
         <header className={styles.header}>
           <div>
             <svg viewBox="0 0 26 31" id="location" width="28px" height="34px">

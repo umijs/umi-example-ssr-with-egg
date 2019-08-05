@@ -3,6 +3,7 @@
 const { Controller } = require('egg');
 const { join } = require('path');
 const ssrPolyfill = require('ssr-polyfill');
+const { Helmet } = require('react-helmet');
 const restaurants = require('../data/restaurants.json');
 
 class HomeController extends Controller {
@@ -51,6 +52,15 @@ class HomeController extends Controller {
 
     const ssrContent = ReactDOMServer.renderToString(rootContainer);
 
+    let htmlExtra = {};
+    try {
+      const helmet = Helmet.renderStatic();
+      htmlExtra = {
+        title: helmet.title.toString(),
+      }
+    } catch (e) {}
+
+
     // for reset global window, avoid oom
     this.nodePolyfill(originGlobal.window);
 
@@ -59,6 +69,7 @@ class HomeController extends Controller {
       jsChunks: js.slice(1),
       cssChunks: css,
       g_initialData: encodeURIComponent(JSON.stringify(g_initialData)),
+      ...htmlExtra,
     });
   }
 
