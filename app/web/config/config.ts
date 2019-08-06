@@ -22,6 +22,10 @@ const config: IConfig = {
       },
     ],
   ],
+  extraBabelPlugins: [
+    [require.resolve('babel-plugin-import'), { libraryName: "antd", style: 'less' }],
+    [require.resolve('babel-plugin-import'), { libraryName: "antd-mobile", style: 'less' }, 'antd-mobile-import'],
+  ],
   runtimePublicPath: true,
   disableCSSModules: true,
   cssModulesWithAffix: true,

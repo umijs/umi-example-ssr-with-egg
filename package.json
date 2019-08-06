@@ -47,7 +47,7 @@
     "autod": "^3.0.1",
     "autod-egg": "^1.0.0",
     "babel-plugin-dva-hmr": "^0.4.0",
-    "babel-plugin-import": "^1.1.0",
+    "babel-plugin-import": "^1.12.0",
     "egg-bin": "^4.9.0",
     "egg-mock": "^3.20.1",
     "eslint": "^5.8.0",
