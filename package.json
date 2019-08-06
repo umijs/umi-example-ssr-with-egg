@@ -4,9 +4,9 @@
   "description": "",
   "private": true,
   "scripts": {
-    "start": "npm run build && egg-scripts start --daemon --env prod",
-    "stop": "egg-scripts stop",
-    "dev": "egg-bin dev",
+    "start": "npm run build && egg-scripts start --port=7001 --daemon --title=egg-umi-ssr --env=prod",
+    "stop": "egg-scripts stop --title=egg-umi-ssr",
+    "dev": "egg-bin dev --port=7001 --sticky",
     "debug": "cross-env RM_TMPDIR=none COMPRESS=none egg-bin debug",
     "build": "npm run umi:build",
     "prerender": "egg-scripts start --daemon --env prod && cross-env UMI_ENV=prerender umi build && egg-scripts stop",
