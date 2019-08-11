@@ -65,14 +65,19 @@ const svgs2 = [
 
 @withRouter
 export default class Layout extends React.PureComponent {
-  state = {
-    showTab: false,
-  };
+  tabData = [
+    { title: '首页', href: '/home', icon: svgs[0], icon2: svgs2[0] },
+    { title: '发现', href: '/discover', icon: svgs[1], icon2: svgs2[1] },
+    { title: '订单', href: '/order', icon: svgs[2], icon2: svgs2[2] },
+    { title: '我的', href: '/profile', icon: svgs[3], icon2: svgs2[3] },
+  ];
 
-  componentWillMount() {
-    this.setState({
-      showTab: this.needShowTab(),
-    });
+  constructor(props) {
+    super(props);
+    const showTab = this.needShowTab();
+    this.state = {
+      showTab
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -80,13 +85,6 @@ export default class Layout extends React.PureComponent {
       showTab: this.needShowTab(nextProps.location.pathname),
     });
   }
-
-  tabData = [
-    { title: '首页', href: '/home', icon: svgs[0], icon2: svgs2[0] },
-    { title: '发现', href: '/discover', icon: svgs[1], icon2: svgs2[1] },
-    { title: '订单', href: '/order', icon: svgs[2], icon2: svgs2[2] },
-    { title: '我的', href: '/profile', icon: svgs[3], icon2: svgs2[3] },
-  ];
 
   needShowTab(url) {
     return this.tabData.some(item => this.isActive(item.href, url));
