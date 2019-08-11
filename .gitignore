@@ -20,6 +20,7 @@ assets-with-umi/config/manifest.json
 .umi-production
 dist
 screenshots
+config/manifest.json
 reports
 .history
 yarn.lock
