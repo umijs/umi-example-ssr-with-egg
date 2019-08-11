@@ -35,6 +35,10 @@ const config: IConfig = {
     ],
     ['umi-plugin-gh-pages', {
       dir: join(winPath(__dirname), '..', 'site'),
+      user: {
+        name: 'github-actions-bot',
+        email: 'support+actions@github.com'
+      },
     }],
     ['@umijs/plugin-prerender', {
       runInMockContext: {

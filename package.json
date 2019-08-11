@@ -13,7 +13,7 @@
     "umi:dev": "umi dev",
     "umi:build": "cross-env UMI_ENV=prod CI=true umi build",
     "test": "egg-bin test",
-    "gh-pages": "cross-env GITHUB_PAGE=true npm run prerender && cross-env GITHUB_PAGE=true UMI_ENV=prerender umi gh-pages -- -u \"github-actions-bot <support+actions@github.com>\"",
+    "gh-pages": "cross-env GITHUB_PAGE=true npm run prerender && cross-env GITHUB_PAGE=true UMI_ENV=prerender umi gh-pages",
     "cov": "egg-bin cov",
     "lint": "eslint .",
     "ci": "npm run lint && npm run cov",
