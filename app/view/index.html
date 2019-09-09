@@ -27,7 +27,7 @@
 {% for css in cssChunks %}
 <link rel="stylesheet" href="{{ helper.assets.resourceBase }}{{css}}">
 {% endfor %}
-<script>(function(){window.g_initialData = JSON.parse(decodeURIComponent('{{ g_initialData }}'));})()</script>
+<script>(function(){window.g_useSSR=true;window.g_initialData = JSON.parse(decodeURIComponent('{{ g_initialData }}'));})()</script>
 </head>
 <body>
 

@@ -9,6 +9,7 @@ const config: IConfig = {
       {
         locale: {
           baseNavigator: false,
+          useLocalStorage: false,
         },
         hd: false,
         antd: true,

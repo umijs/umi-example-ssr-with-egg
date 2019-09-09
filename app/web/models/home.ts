@@ -12,7 +12,7 @@ const HomeModel: Model = {
     rests: [],
   },
   effects: {
-    *queryRests({ payload }, { put, call, select }) {
+    *queryRests({ payload, location }, { put, call, select }) {
       const coords = yield select(({ home }) => home.coords);
       const res = yield call(queryRestaurantData, {
         ...payload,
@@ -23,18 +23,20 @@ const HomeModel: Model = {
         yield put({
           type: 'saveRests',
           payload: res || {},
+          location,
         });
       }
     },
   },
   reducers: {
-    saveRests(state, { payload }) {
+    saveRests(state, { payload, location }) {
       if (state.rests.length > 0) {
         state.rests = state.rests.concat(payload.items || []);
       } else {
         state.rests = payload.items || [];
       }
       state.rank_id = payload.meta.rank_id || '';
+      state.location = location;
     },
     changeCoords(state, { payload }) {
       state.coords = payload;
