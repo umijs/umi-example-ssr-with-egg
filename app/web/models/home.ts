@@ -13,7 +13,6 @@ const HomeModel: Model = {
   },
   effects: {
     *queryRests({ payload, location }, { put, call, select }) {
-      console.log('locationlocation', location);
       const coords = yield select(({ home }) => home.coords);
       const res = yield call(queryRestaurantData, {
         ...payload,
