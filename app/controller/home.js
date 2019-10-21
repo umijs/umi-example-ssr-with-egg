@@ -7,17 +7,6 @@ const { Helmet } = require('react-helmet');
 const restaurants = require('../data/restaurants.json');
 
 class HomeController extends Controller {
-  handlerTitle(html, { load }) {
-    const $ = load(html);
-    try {
-      const helmet = Helmet.renderStatic();
-      const title = helmet.title.toString();
-      $('head').prepend(title);
-    } catch (e) {
-      this.ctx.logger.error('postProcessHtml title', e);
-    }
-    return $.html();
-  }
   constructor(ctx) {
     super(ctx);
     const { url: host, publicPath } = ctx.app.config.assets;
@@ -29,13 +18,23 @@ class HomeController extends Controller {
       root: join(__dirname, '..', 'public'),
       host,
       publicPath,
-      polyfill: {
-        host: 'http://localhost:7001'
-      },
+      polyfill: true,
       postProcessHtml: [
         this.handlerTitle,
       ],
    })
+  }
+
+  handlerTitle(html, { load }) {
+    const $ = load(html);
+    try {
+      const helmet = Helmet.renderStatic();
+      const title = helmet.title.toString();
+      $('head').prepend(title);
+    } catch (e) {
+      this.ctx.logger.error('postProcessHtml title', e);
+    }
+    return $.html();
   }
 
   async index() {
@@ -46,11 +45,16 @@ class HomeController extends Controller {
       delete require.cache[require.resolve(this.umiServerPath)];
     }
 
+    const renderOpts = {
+      polyfill: {
+        host: `${ctx.request.protocol}://${ctx.request.host}`,
+      }
+    }
     const { ssrHtml } = await this.render({
       req: {
         url: ctx.request.url,
       }
-    });
+    }, renderOpts);
 
     ctx.body = await ctx.renderString(ssrHtml);
   }
