@@ -1,4 +1,4 @@
-<h1 align="center">umi-example-ssr-with-egg 👋</h1>
+# umi-example-ssr-with-egg
 <p>
   <img src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
   <img src="https://img.shields.io/badge/node-%3E%3D8.9.0-blue.svg" />
@@ -9,7 +9,7 @@
 
 > Example for building full stack app with [umi](https://github.com/umijs/umi) and [egg](https://github.com/eggjs/egg) Server-Side Render
 
-### 🏠 [Homepage](https://github.com/umijs/umi)
+### [Prerender demo](https://umijs.github.io/umi-example-ssr-with-egg/)
 
 ## Prerequisites
 
