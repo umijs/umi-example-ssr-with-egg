@@ -2,7 +2,7 @@ import { IConfig } from 'umi-types';
 
 export default {
   hash: true,
-  publicPath: '',
+  publicPath: '/public/',
   manifest: {
     fileName: '../../config/manifest.json',
   },
