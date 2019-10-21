@@ -7,11 +7,22 @@ const { Helmet } = require('react-helmet');
 const restaurants = require('../data/restaurants.json');
 
 class HomeController extends Controller {
+  handlerTitle(html, { load }) {
+    const $ = load(html);
+    try {
+      const helmet = Helmet.renderStatic();
+      const title = helmet.title.toString();
+      $('head').prepend(title);
+    } catch (e) {
+      this.ctx.logger.error('postProcessHtml title', e);
+    }
+    return $.html();
+  }
   constructor(ctx) {
     super(ctx);
     const { url: host, publicPath } = ctx.app.config.assets;
     this.publicPath = publicPath;
-    console.log('ctx.app.config.assets', ctx.app.config.assets);
+
     this.root = join(__dirname, '..', 'public');
     this.umiServerPath = join(this.root, 'umi.server.js');
     this.render = server({
@@ -21,6 +32,9 @@ class HomeController extends Controller {
       polyfill: {
         host: 'http://localhost:7001'
       },
+      postProcessHtml: [
+        this.handlerTitle,
+      ],
    })
   }
 
@@ -38,9 +52,7 @@ class HomeController extends Controller {
       }
     });
 
-    ctx.body = await ctx.renderString(ssrHtml, {
-      publicPath: this.publicPath,
-    });
+    ctx.body = await ctx.renderString(ssrHtml);
   }
 
   async api() {
@@ -53,7 +65,6 @@ class HomeController extends Controller {
 
     const url = `https://h5.ele.me${ctx.path.replace(/^\/api/, '')}?${ctx.querystring}`;
 
-    console.log(url);
     const res = await this.ctx.curl(url, {
       method: this.ctx.method,
     });
