@@ -1,6 +1,7 @@
 import { IConfig } from 'umi-types';
 import { join } from 'path';
 import { winPath } from 'umi-utils';
+import { metas, headScripts } from './config';
 
 const isGithubPage = process.env.GITHUB_PAGE === 'true';
 
@@ -13,7 +14,6 @@ const config: IConfig = {
     [
       'umi-plugin-react',
       {
-        hd: true,
         locale: {
           baseNavigator: false,
         },
@@ -21,7 +21,10 @@ const config: IConfig = {
         dva: {
           immer: true,
         },
+        hd: false,
+        metas,
         headScripts: [
+          ...headScripts,
           {
             content: 'window.USE_PRERENDER = true;',
           }
