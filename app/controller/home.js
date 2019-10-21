@@ -9,15 +9,10 @@ const restaurants = require('../data/restaurants.json');
 class HomeController extends Controller {
   constructor(ctx) {
     super(ctx);
-    const { url: host, publicPath } = ctx.app.config.assets;
-    this.publicPath = publicPath;
-
     this.root = join(__dirname, '..', 'public');
     this.umiServerPath = join(this.root, 'umi.server.js');
     this.render = server({
       root: join(__dirname, '..', 'public'),
-      host,
-      publicPath,
       polyfill: true,
       postProcessHtml: [
         this.handlerTitle,
