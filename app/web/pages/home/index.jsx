@@ -5,6 +5,7 @@ import { formatMessage } from 'umi-plugin-locale';
 import { connect } from 'dva';
 import { StickyContainer, Sticky } from 'react-sticky';
 import { SearchBar, Grid, ListView } from 'antd-mobile';
+import request from '@/utils/request';
 import styles from './index.module.less';
 
 @connect(({ home, loading }) => ({
@@ -94,7 +95,7 @@ class Home extends React.Component {
    */
   loadTypeData() {
     const { latitude, longitude } = this.props;
-    fetch(
+    request(
       `/restapi/shopping/openapi/entries?latitude=${latitude}&longitude=${longitude}&templates[]=main_template&templates[]=favourable_template&templates[]=svip_template`,
     )
       .then(res => {
@@ -118,7 +119,7 @@ class Home extends React.Component {
   loadPoiData() {
     const { latitude, longitude } = this.props;
     // poi数据
-    fetch(`/restapi/bgs/poi/reverse_geo_coding?latitude=${latitude}&longitude=${longitude}`)
+    request(`/restapi/bgs/poi/reverse_geo_coding?latitude=${latitude}&longitude=${longitude}`)
       .then(res => {
         if (res.status === 200) {
           res.json().then(data => {

@@ -11,7 +11,7 @@
     "build": "npm run umi:build",
     "prerender": "npm run start && cross-env UMI_ENV=prerender umi build && egg-scripts stop",
     "umi:dev": "umi dev",
-    "umi:build": "cross-env UMI_ENV=prod CI=true umi build",
+    "umi:build": "cross-env UMI_ENV=prod umi build",
     "test": "egg-bin test",
     "gh-pages": "cross-env GITHUB_PAGE=true npm run prerender && cross-env GITHUB_PAGE=true UMI_ENV=prerender umi gh-pages",
     "cov": "egg-bin cov",
@@ -35,6 +35,7 @@
     "ssr-polyfill": "^1.0.0",
     "umi-plugin-locale": "^2.9.8",
     "umi-request": "1.2.4-beta.1",
+    "umi-server": "^1.0.0",
     "umi-utils": "^1.5.4",
     "url": "^0.11.0"
   },

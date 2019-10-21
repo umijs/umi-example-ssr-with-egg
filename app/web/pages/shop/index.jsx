@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import router from 'umi/router';
 import { NavBar, Icon, Tabs, List, Button, WhiteSpace } from 'antd-mobile';
+import request from '@/utils/request';
 import styles from './index.module.less';
 
 
@@ -23,7 +24,7 @@ export default class extends Component {
     if (!hash) {
       return '';
     }
-    const path = `${hash[0] }/${hash.substr(1, 2)}/${hash.substr(3)}`;
+    const path = `${hash[0]}/${hash.substr(1, 2)}/${hash.substr(3)}`;
     let type = 'jpeg';
     if (path.indexOf('png') > -1) {
       type = 'png';
@@ -34,7 +35,7 @@ export default class extends Component {
   itemOffset = {};
 
   loadMenu = id => {
-    fetch(`/restapi/shopping/v2/menu?restaurant_id=${id}`)
+    request(`/restapi/shopping/v2/menu?restaurant_id=${id}`)
       .then(res => {
         if (res.status === 200) {
           res.json().then(data => {
@@ -51,7 +52,7 @@ export default class extends Component {
 
   loadInfo = id => {
     const { longitude, latitude } = this.props.location.query;
-    fetch(
+    request(
       `/restapi/shopping/restaurant/${id}?extras[]=activities&extras[]=albums&extras[]=license&extras[]=identification&extras[]=qualification&terminal=h5&latitude=${latitude}&longitude=${longitude}`,
     )
       .then(res => {
@@ -78,7 +79,7 @@ export default class extends Component {
     if (item._type === 'type') {
       return (
         <div
-          key={`${id }_${index}`}
+          key={`${id}_${index}`}
           id={id}
           ref={dom => {
             if (!dom) return;

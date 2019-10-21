@@ -15,6 +15,7 @@ module.exports = appInfo => {
   };
 
   config.view = {
+    defaultViewEngine: 'nunjucks',
     mapping: {
       '.html': 'nunjucks',
     },
