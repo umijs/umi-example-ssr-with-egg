@@ -1,0 +1,58 @@
+{
+  "/": {
+    "js": [
+      "umi.65a4885b.js"
+    ],
+    "css": [
+      "umi.06a5a3de.css"
+    ]
+  },
+  "/discover": {
+    "js": [
+      "umi.65a4885b.js"
+    ],
+    "css": [
+      "umi.06a5a3de.css"
+    ]
+  },
+  "/home": {
+    "js": [
+      "umi.65a4885b.js"
+    ],
+    "css": [
+      "umi.06a5a3de.css"
+    ]
+  },
+  "/news/:id": {
+    "js": [
+      "umi.65a4885b.js"
+    ],
+    "css": [
+      "umi.06a5a3de.css"
+    ]
+  },
+  "/order": {
+    "js": [
+      "umi.65a4885b.js"
+    ],
+    "css": [
+      "umi.06a5a3de.css"
+    ]
+  },
+  "/profile": {
+    "js": [
+      "umi.65a4885b.js"
+    ],
+    "css": [
+      "umi.06a5a3de.css"
+    ]
+  },
+  "/shop": {
+    "js": [
+      "umi.65a4885b.js"
+    ],
+    "css": [
+      "umi.06a5a3de.css"
+    ]
+  }
+}
